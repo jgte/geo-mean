@@ -19,10 +19,12 @@ BEGIN{
   } else if (NR==2){
     if (NF==3) {
       NAME=$1
-      if (FILE_COUNT==1){
-      }
       GM=$2
       R=$3
+    } else if (NF==4) {
+      NAME=$1," ",$2
+      GM=$3
+      R=$4
     } else {
       printf("ERROR: cannot handle GEO header line 2:\n%s",NR,$0)
       exit_invoked=1
