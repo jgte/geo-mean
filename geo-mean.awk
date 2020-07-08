@@ -26,7 +26,7 @@ BEGIN{
       GM=$3
       R=$4
     } else {
-      printf("ERROR: cannot handle GEO header line 2:\n%s\n",NR,$0)
+      printf("ERROR: cannot handle GEO header line %s:\n%s\n",NR,$0)
       exit_invoked=1
       exit 1
     }
