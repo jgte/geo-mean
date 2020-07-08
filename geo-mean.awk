@@ -21,7 +21,7 @@ BEGIN{
       NAME=$1
       GM=$2
       R=$3
-    } else if (FNF==4) {
+    } else if (FNR==4) {
       NAME=sprintf("%s %s",$1,$2)
       GM=$3
       R=$4
