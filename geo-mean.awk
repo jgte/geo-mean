@@ -22,7 +22,7 @@ BEGIN{
       GM=$2
       R=$3
     } else if (NF==4) {
-      NAME=$1," ",$2
+      NAME=sprintf("%s %s",$1,$2)
       GM=$3
       R=$4
     } else {
