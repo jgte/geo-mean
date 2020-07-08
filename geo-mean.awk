@@ -13,24 +13,24 @@ BEGIN{
   R1=6378136.30
 }
 {
-  if (NR==1){ 
+  if (FNR==1){ 
     FILE_COUNT+=1
     FMT1=$0 
-  } else if (NR==2){
+  } else if (FNR==2){
     if (NF==3) {
       NAME=$1
       GM=$2
       R=$3
-    } else if (NF==4) {
+    } else if (FNF==4) {
       NAME=sprintf("%s %s",$1,$2)
       GM=$3
       R=$4
     } else {
-      printf("ERROR: cannot handle GEO header line 2:\n%s",NR,$0)
+      printf("ERROR: cannot handle GEO header line 2:\n%s\n",NR,$0)
       exit_invoked=1
       exit 1
     }
-  } else if (NR==3){
+  } else if (FNR==3){
     FMT2=$0
   } else {
     #need to parse tag, degree and order
@@ -79,7 +79,7 @@ BEGIN{
       SHCiv=$5
       SHSiv=$6
     } else {
-      printf("ERROR: cannot handle GEO data at line %d:\n%s",NR,$0)
+      printf("ERROR: cannot handle GEO data at line %d:\n%s\n",FNR,$0)
       exit_invoked=1
       exit 1
     }
@@ -102,7 +102,7 @@ BEGIN{
       SHCv[d,o]+=SHCiv*SHCiv
       SHSv[d,o]+=SHSiv*SHSiv
     } else {
-      printf("ERROR: cannot handle GEO files with %d columns (fault at line %d)",NF,NR)      
+      printf("ERROR: cannot handle GEO files with %d columns (fault at line %d)\n",NF,FNR)      
       exit_invoked=1
       exit 1
     } 
