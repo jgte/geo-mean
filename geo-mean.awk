@@ -21,12 +21,12 @@ BEGIN{
       NAME=$1
       GM=$2
       R=$3
-    } else if (FNR==4) {
+    } else if (NF==4) {
       NAME=sprintf("%s %s",$1,$2)
       GM=$3
       R=$4
     } else {
-      printf("ERROR: cannot handle GEO header line %s:\n%s\n",NR,$0)
+      printf("ERROR: cannot handle GEO header line %s:\n%s\n",FNR,$0)
       exit_invoked=1
       exit 1
     }
