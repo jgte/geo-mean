@@ -13,9 +13,9 @@ BEGIN{
   R1=6378136.30
 }
 {
-  if (FNR==1){ 
+  if (FNR==1){
     FILE_COUNT+=1
-    FMT1=$0 
+    FMT1=$0
   } else if (FNR==2){
     if (NF==3) {
       NAME=$1
@@ -55,7 +55,7 @@ BEGIN{
         SHCiv=$6
         SHSiv=$7
       } if (length($2)==4 || length($2)==5) {
-        if (length($2)==4) {  
+        if (length($2)==4) {
           # printf("4:")
           d=substr($1,1,1)+0
           o=substr($1,2,3)+0
@@ -102,21 +102,21 @@ BEGIN{
       SHCv[d,o]+=SHCiv*SHCiv
       SHSv[d,o]+=SHSiv*SHSiv
     } else {
-      printf("ERROR: cannot handle GEO files with %d columns (fault at line %d)\n",NF,FNR)      
+      printf("ERROR: cannot handle GEO files with %d columns (fault at line %d)\n",NF,FNR)
       exit_invoked=1
       exit 1
-    } 
+    }
   }
   # print tag,d,o,SHC[d,o],SHS[d,o],SHCv[d,o],SHSv[d,o]
 } END {
   if (! exit_invoked  ) {
-    print FMT1
+    print "(2A10,3E20.10)"
     printf("%20s%20.10e%20.10e\n","sum",GM1,R1)
-    print FMT2
+    print " (A6,2I4,2(X,D20.13),2D11.4,F4.0)"
     for (di = lmin; di <= lmax; di++) {
       for (oi = 0; oi <= di; oi++) {
-        printf("%6s%3d%3d %20.13e %20.13e %10.4e %10.4e %2.0f.\n",tag,di,oi,SHC[di,oi]/FILE_COUNT,SHS[di,oi]/FILE_COUNT,sqrt(SHCv[di,oi])/FILE_COUNT,sqrt(SHSv[di,oi])/FILE_COUNT,-1)
+        printf("%6s%4d%4d %20.13e %20.13e%11.4e%11.4e%4.0f.\n",tag,di,oi,SHC[di,oi]/FILE_COUNT,SHS[di,oi]/FILE_COUNT,sqrt(SHCv[di,oi])/FILE_COUNT,sqrt(SHSv[di,oi])/FILE_COUNT,-1)
       }
     }
-  }  
+  }
 }
